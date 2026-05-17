@@ -20,10 +20,10 @@ const defaultInputs: CalculatorInputs = {
   manualMinutesPerLead: 8,
   hourlyCost: 30,
   manualLeadShare: 1.0,
-  automationShare: 0.60,
+  automationShare: 0.50,
   speedToLeadLiftPP: 0.05,
   improvedNoShowRate: 0.15,
-  briefingCoverage: 0.60, // Defaults to automationShare
+  briefingCoverage: 0.50, // Defaults to automationShare
   closeRateLiftPP: 0.03,
 };
 

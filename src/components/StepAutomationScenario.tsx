@@ -34,19 +34,41 @@ export function StepAutomationScenario({ inputs, onChange }: StepAutomationScena
           <h3 className="text-sm font-bold text-navy-700 uppercase tracking-wider">Alcance de la automatización</h3>
         </div>
 
-        <SliderInput
-          id="automation-share"
-          label="¿Qué parte del primer contacto quieres automatizar?"
-          helper="No hace falta automatizarlo todo. Puedes estimar solo la parte repetitiva: primeras llamadas, cualificación básica, WhatsApps iniciales o leads fuera de horario."
-          value={inputs.automationShare}
-          onChange={(v) => {
-            onChange({ automationShare: v, briefingCoverage: v });
-          }}
-          min={0}
-          max={1}
-          step={0.05}
-          displayValue={`${Math.round(inputs.automationShare * 100)}%`}
-        />
+        <div>
+          <label className="block text-sm font-semibold text-text-primary mb-1">
+            ¿Qué parte del primer contacto quieres automatizar?
+          </label>
+          <p className="text-xs text-text-secondary mb-3">
+            Selecciona el nivel de profundidad que deseas que alcance el sistema de IA.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { label: 'Añadir al CRM + Primer mensaje', value: 0.1 },
+              { label: 'Extracción de datos y cualificación', value: 0.5 },
+              { label: 'Agendamiento', value: 0.8 },
+              { label: 'Seguimientos', value: 1.0 },
+            ].map((option) => (
+              <button
+                key={option.label}
+                onClick={() => onChange({ automationShare: option.value, briefingCoverage: option.value })}
+                className={`p-4 text-left border rounded-xl transition-all duration-200 ${
+                  inputs.automationShare === option.value
+                    ? 'bg-cyan-50 border-cyan-400 shadow-sm shadow-cyan-100'
+                    : 'bg-white border-navy-100 hover:border-cyan-300 hover:bg-slate-50'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm font-medium ${inputs.automationShare === option.value ? 'text-navy-900' : 'text-text-primary'}`}>
+                    {option.label}
+                  </span>
+                  <span className={`text-xs font-bold px-2 py-1 rounded-md ${inputs.automationShare === option.value ? 'bg-cyan-100 text-cyan-800' : 'bg-slate-100 text-slate-500'}`}>
+                    {option.value * 100}%
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Section: Speed to lead */}
