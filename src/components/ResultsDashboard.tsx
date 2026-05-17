@@ -59,8 +59,25 @@ export function ResultsDashboard({ results, onRecalculate }: ResultsDashboardPro
   const [showModal, setShowModal] = useState(false);
   const diagnosis = diagnosisMessages[results.topLeakage];
 
+  const handleDownloadPdf = () => {
+    import('html2pdf.js').then((html2pdf) => {
+      const element = document.getElementById('results-dashboard');
+      if (!element) return;
+      
+      const opt = {
+        margin:       0.5,
+        filename:     'diagnostico-costes-comerciales.pdf',
+        image:        { type: 'jpeg' as const, quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#f8fafc' },
+        jsPDF:        { unit: 'in' as const, format: 'a4' as const, orientation: 'portrait' as const }
+      };
+      
+      html2pdf.default().set(opt).from(element).save();
+    });
+  };
+
   return (
-    <div className="space-y-10">
+    <div className="space-y-10" id="results-dashboard">
       {/* ── Hero number ─────────────────────────────── */}
       <div className="text-center animate-fade-in-up">
         <p className="text-sm font-semibold text-navy-500 uppercase tracking-wider mb-3">
@@ -227,16 +244,25 @@ export function ResultsDashboard({ results, onRecalculate }: ResultsDashboardPro
       </div>
 
       {/* ── CTA Buttons ─────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '650ms', animationFillMode: 'forwards', opacity: 0 }}>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '650ms', animationFillMode: 'forwards', opacity: 0 }} data-html2canvas-ignore>
         <button
           id="download-diagnosis-btn"
+          onClick={handleDownloadPdf}
+          className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-semibold rounded-xl
+                     hover:from-cyan-400 hover:to-cyan-500 transition-smooth
+                     shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40
+                     active:scale-[0.98] text-base"
+        >
+          Descargar diagnóstico (PDF)
+        </button>
+        <button
           onClick={() => setShowModal(true)}
           className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-navy-700 via-navy-800 to-navy-900 text-white font-semibold rounded-xl
                      hover:from-navy-600 hover:via-navy-700 hover:to-navy-800 transition-smooth
                      shadow-lg shadow-navy-800/30 hover:shadow-xl hover:shadow-navy-800/40
                      active:scale-[0.98] text-base"
         >
-          Descargar mi diagnóstico
+          Quiero ayuda para solucionarlo
         </button>
         <button
           id="recalculate-btn"
