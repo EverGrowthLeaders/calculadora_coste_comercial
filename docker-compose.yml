@@ -6,6 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: lead_calculator_app
-    ports:
-      - "8080:80"
+    expose:
+      - "80"
     restart: always
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
