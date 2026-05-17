@@ -21,9 +21,7 @@ const defaultInputs: CalculatorInputs = {
   hourlyCost: 30,
   manualLeadShare: 1.0,
   automationShare: 0.60,
-  automationEfficiency: 0.80,
   speedToLeadLiftPP: 0.05,
-  reminderCoverage: 0.80,
   improvedNoShowRate: 0.15,
   briefingCoverage: 0.60, // Defaults to automationShare
   closeRateLiftPP: 0.03,

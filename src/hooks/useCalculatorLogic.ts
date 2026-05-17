@@ -17,9 +17,7 @@ export function useCalculatorLogic(inputs: CalculatorInputs): CalculatorResults 
       hourlyCost,
       manualLeadShare,
       automationShare,
-      automationEfficiency,
       speedToLeadLiftPP,
-      reminderCoverage,
       improvedNoShowRate,
       briefingCoverage,
       closeRateLiftPP,
@@ -48,10 +46,8 @@ export function useCalculatorLogic(inputs: CalculatorInputs): CalculatorResults 
     const speedImpact = revenueSpeed - revenueBase;
 
     // ── Step 2: No-show reduction impact ──────────────────────
-    // Blended show rate: non-reminded portion keeps old rate, reminded gets improved
-    const effectiveShowRate =
-      (1 - reminderCoverage) * (1 - currentNoShowRate) +
-      reminderCoverage * (1 - improvedNoShowRate);
+    // Assuming 100% of booked calls get reminders
+    const effectiveShowRate = 1 - improvedNoShowRate;
 
     const heldNoShow = bookedSpeed * effectiveShowRate;
     const salesNoShow = heldNoShow * currentCloseRate;
@@ -75,8 +71,8 @@ export function useCalculatorLogic(inputs: CalculatorInputs): CalculatorResults 
     const manualMinutesMonthly = monthlyLeads * manualLeadShare * manualMinutesPerLead;
     const manualHoursMonthly = manualMinutesMonthly / 60;
     const manualCostMonthly = manualHoursMonthly * hourlyCost;
-    const timeSavings = manualCostMonthly * automationShare * automationEfficiency;
-    const recoveredHours = manualHoursMonthly * automationShare * automationEfficiency;
+    const timeSavings = manualCostMonthly * automationShare;
+    const recoveredHours = manualHoursMonthly * automationShare;
 
     // ── Totals ────────────────────────────────────────────────
     const monthlyHiddenCost = speedImpact + noShowImpact + briefingImpact + timeSavings;

@@ -47,18 +47,6 @@ export function StepAutomationScenario({ inputs, onChange }: StepAutomationScena
           step={0.05}
           displayValue={`${Math.round(inputs.automationShare * 100)}%`}
         />
-
-        <SliderInput
-          id="automation-efficiency"
-          label="¿Qué porcentaje de ese trabajo manual podría absorber el sistema?"
-          helper="Deja margen para casos donde el humano sigue interviniendo."
-          value={inputs.automationEfficiency}
-          onChange={(v) => onChange({ automationEfficiency: v })}
-          min={0}
-          max={1}
-          step={0.05}
-          displayValue={`${Math.round(inputs.automationEfficiency * 100)}%`}
-        />
       </div>
 
       {/* Section: Speed to lead */}
@@ -87,18 +75,6 @@ export function StepAutomationScenario({ inputs, onChange }: StepAutomationScena
           <div className="w-1.5 h-5 rounded-full bg-gradient-to-b from-magenta-500 to-magenta-300" />
           <h3 className="text-sm font-bold text-navy-700 uppercase tracking-wider">Recordatorios y no-show</h3>
         </div>
-
-        <SliderInput
-          id="reminder-coverage"
-          label="¿Qué parte de las citas tendría recordatorios y nutrición?"
-          helper="Puede aplicarse a todas las citas o solo a las que pasen por el sistema."
-          value={inputs.reminderCoverage}
-          onChange={(v) => onChange({ reminderCoverage: v })}
-          min={0}
-          max={1}
-          step={0.05}
-          displayValue={`${Math.round(inputs.reminderCoverage * 100)}%`}
-        />
 
         <SliderInput
           id="improved-noshow"

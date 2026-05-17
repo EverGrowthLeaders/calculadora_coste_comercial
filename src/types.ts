@@ -14,9 +14,7 @@ export interface CalculatorInputs {
 
   // Step 3 — Automation scenario
   automationShare: number;        // 0–1
-  automationEfficiency: number;   // 0–1
   speedToLeadLiftPP: number;     // absolute pp, e.g. 0.05
-  reminderCoverage: number;       // 0–1
   improvedNoShowRate: number;     // 0–1
   briefingCoverage: number;       // 0–1
   closeRateLiftPP: number;       // absolute pp, e.g. 0.03
